@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>OSOS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="{{ url_for('inicio') }}" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+                <h1 style="margin-right: 10px;">OSOS</h1>
+                <img src="{{ url_for('static', filename='ImagenesOSOS/oso.png') }}" alt="Logo OSOS" style="height: 50px;">
+            </a>
+        </div>
+
+        <div class="menu">
+            <nav>
+                <ul class="nav-menu">
+                    <li>
+                        <a class="menu-button" href="{{ url_for('inicio') }}">Inicio</a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="menu-button" href="#">Buscar reseñas</a>
+                        <div class="submenu">
+                            <a href="{{ url_for('mostrar_maestros') }}">Por maestro</a>
+                            <a href="{{ url_for('mostrar_materias') }}">Por materia</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        {% if 'rol' in session %}
+                            <a class="menu-button" href="{{ url_for('agregar_resena') }}">Agregar reseña</a>
+                        {% else %}
+                            <a class="menu-button" href="#">Agregar reseña</a>
+                            <div class="submenu">
+                            <p>Necesitas iniciar sesión</p>
+                            </div>
+                        {% endif %}
+                    </li>
+                    
+                    <p> {{ rol }}</p>
+                    {% if session['rol'] == 'Administrador' %}
+                        <li class="dropdown">
+                            <a class="menu-button" href="{{ url_for('agregar_admi') }}">+Admi</a>
+                        </li>
+                    {% endif %}
+
+                    <p> {{ rol }}</p>
+                    {% if session['rol'] == 'Administrador' %}
+                        <li class="dropdown">
+                            <a href="{{ url_for('ver_peticiones') }}">Peticiones</a>
+                        </li>
+                    {% endif %}
+
+                    <p> {{ rol }}</p>
+                    {% if session['rol'] == 'Estudiante' %}
+                        <li class="dropdown">
+                            <a href="{{ url_for('agregar_peticion') }}">+Petición</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        {% if 'usuario' in session and 'rol' in session %}
+            <div class="user-info">
+                <ul>
+                    <li><p>{{ session['rol'] }}</p></li>
+                    <li><p>{{ session['usuario'] }}</p></li>
+                    <li class="logout-item"><a href="{{ url_for('logout') }}" class="login-btn">Cerrar sesión</a></li>
+                </ul>
+            </div>
+            
+            {% else %}
+                <a href="{{ url_for('inicio_sesion') }}" class="login-btn">Iniciar sesión</a>
+            {% endif %}
+    </header>
+    <main>
+        <form method="GET" action="{{ url_for('buscar_materia') }}" class="barra-buscadora">
+    <input 
+        type="text" 
+        name="consulta" 
+        placeholder="Buscar materia..." 
+        required
+    >
+    <button type="submit">Buscar</button>
+</form>
+
+        <h1 class="titlereseña">Reseñas por materia</h1>
+        <div class="contenedor-botones">
+            <ul class="lista-maestros">
+                {% for materia in materias %}
+                    <!-- materia ahora debe ser una tupla o dict con id y nombre, si no ajusta obtener_materias para que lo regrese -->
+                    <li><a class="boton-minimalista" href="{{ url_for('reseñas_por_materia', idMateria=materia.idMateria) }}">{{ materia.nombreMateria }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,65 @@
+/* Contenedor del formulario */
+.formulario {
+    background-color: #2e1d07;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 30px 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    margin-top: 90px;
+}
+
+/* Etiquetas */
+.formulario label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* Campos de entrada y selección */
+.formulario input[type="text"],
+.formulario select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    border: 1px solid #0e0b0b;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.formulario textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    border: 1px solid #0e0b0b;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.formulario input[type="text"]:focus,
+.formulario select:focus {
+    border-color: #0a0a0a;
+    outline: none;
+}
+
+/* Botón de envío */
+.formulario button[type="submit"] {
+    width: 100%;
+    background-color: #3e3e3e;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.formulario button[type="submit"]:hover {
+    background-color: #07090b;
+}

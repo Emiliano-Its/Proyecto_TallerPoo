@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>OSOS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='diseño+Admi.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="{{ url_for('inicio') }}" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+                <h1 style="margin-right: 10px;">OSOS</h1>
+                <img src="{{ url_for('static', filename='ImagenesOSOS/oso.png') }}" alt="Logo OSOS" style="height: 50px;">
+            </a>
+        </div>
+
+        
+        <div class="menu">
+            <nav>
+                <ul class="nav-menu">
+                    <li>
+                        <a class="menu-button" href="{{ url_for('inicio') }}">Inicio</a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="menu-button" href="#">Buscar reseñas</a>
+                        <div class="submenu">
+                            <a href="{{ url_for('mostrar_maestros') }}">Por maestro</a>
+                            <a href="{{ url_for('mostrar_materias') }}">Por materia</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        {% if 'rol' in session %}
+                            <a class="menu-button" href="{{ url_for('agregar_resena') }}">Agregar reseña</a>
+                        {% else %}
+                            <a class="menu-button" href="#">Agregar reseña</a>
+                            <div class="submenu">
+                                <p>Necesitas iniciar sesión</p>
+                            </div>
+                        {% endif %}
+                    </li>
+                    
+                    <p> {{ rol }}</p>
+                    {% if session['rol'] == 'Administrador' %}
+                        <li class="dropdown">
+                            <a class="menu-button" href="{{ url_for('agregar_admi') }}">+Admi</a>
+                        </li>
+                    {% endif %}
+
+                    <p> {{ rol }}</p>
+                    {% if session['rol'] == 'Administrador' %}
+                        <li class="dropdown">
+                            <a href="{{ url_for('ver_peticiones') }}">Peticiones</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+            {% if 'usuario' in session and 'rol' in session %}
+                <div class="user-info">
+                    <ul>
+                        <li><p>{{ session['rol'] }}</p></li>
+                        <li><p>{{ session['usuario'] }}</p></li>
+                        <li class="logout-item"><a href="{{ url_for('logout') }}" class="login-btn">Cerrar sesión</a></li>
+                    </ul>
+                </div> 
+            {% else %}
+                <a href="{{ url_for('inicio_sesion') }}" class="login-btn">Iniciar sesión</a>
+            {% endif %}
+    </header>
+
+    <main>
+        <div class="admin-container">
+            <h1 class="admin-form-title">Agregar administrador</h1>
+            <form method="POST" action="/agregar_admin" class="formulario">
+                <input type="text" name="usuario" placeholder="Usuario:" class="admin-input" required>
+                <input type="password" name="password" placeholder="Contraseña:" class="admin-input" required>
+                <input type="password" name="confirm_password" placeholder="Confirma tu contraseña:" class="admin-input" required>
+                <input type="submit" value="Guardar datos" class="admin-submit">
+            </form>
+        </div>
+
+        <!-- LISTADO DE ADMINISTRADORES -->
+        <div class="admin-list">
+    <h2>Lista de Administradores</h2>
+    {% if administradores and administradores|length > 0 %}
+        <ul>
+            {% for admin in administradores %}
+                <li>
+                    <span>{{ admin.NomUsuario }}</span>
+                    <form method="POST" action="{{ url_for('eliminar_admin', id=admin.idUsuario) }}">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay administradores registrados.</p>
+    {% endif %}
+</div>
+    </main>
+</body>
+    <script src="{{ url_for('static', filename='menu.js') }}"></script>
+</html>

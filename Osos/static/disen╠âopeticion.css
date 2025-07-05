@@ -1,0 +1,85 @@
+main h1{
+    font-size: 30px;
+    margin-top: 25px;
+    margin-left: 90px;
+    margin-bottom: 15px;
+    color: rgb(198, 201, 204);
+}
+.peticion {
+    background-color: #3b2f16;
+    color: white;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    font-family: sans-serif;
+    margin-left: 90px;
+    margin-right: 90px;
+    display: flex;
+    justify-content: space-between; /* Espacio entre info y botones */
+    align-items: center;            
+}
+
+.info-peticion {
+    flex: 1;                        /* Ocupa el espacio disponible */
+}
+
+.info-peticion:last-child {
+    flex: 0;                        /* No crecer, solo contenido (los botones) */
+    display: flex;
+    gap: 10px;                      /* Espacio entre botones */
+    justify-content: flex-end;
+}
+
+.form-aceptar,
+.form-denegar {
+    margin: 0;
+}
+
+.usuario,
+.tipo,
+.texto {
+    margin: 4px 0;
+    font-size: 1rem;
+}
+
+.texto {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.form-aceptar,
+.form-denegar {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.btn {
+    padding: 12px 24px;       /* Aumenta el tamaño del botón */
+    font-size: 1.1rem; 
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn.aceptar {
+    background-color: #146414;
+}
+
+.btn.denegar {
+    background-color: #b10000;
+}
+
+.info-horizontal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+
+.info-horizontal p {
+    margin: 0;
+}
+

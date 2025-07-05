@@ -176,7 +176,7 @@ def login_post():
 
     if usuario and check_password_hash(usuario['contraseña'], password):
         session['usuario'] = usuario['NomUsuario']
-        session['idUsuario'] = usuario['idUsuario']  # ✅ Aquí lo agregas
+        session['idUsuario'] = usuario['idUsuario']  
         session['rol'] = usuario['NomRol']
         if usuario['NomRol'] == 'Administrador':
             return redirect('/')
@@ -649,7 +649,7 @@ def buscar_maestros():
 
     # Buscar todos los maestros que coincidan con la consulta
     cursor.execute("SELECT idMaestro, nombreMaestro FROM maestros WHERE nombreMaestro LIKE %s", ('%' + consulta + '%',))
-    maestros = cursor.fetchall()  # ✅ Aquí está la corrección
+    maestros = cursor.fetchall() 
 
     if not maestros:
         conexion.close()
@@ -680,7 +680,7 @@ def buscar_materia():
     cursor = conexion.cursor()
 
     cursor.execute("SELECT idMateria, nombreMateria FROM materias WHERE nombreMateria LIKE %s", (f"%{consulta}%",))
-    resultados = cursor.fetchall()  # ✅ cambia esto
+    resultados = cursor.fetchall()  
 
     resenas = []
     nombre_materia = ""
